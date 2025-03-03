@@ -77,11 +77,11 @@ config:
         prompts:
           # 你可以在提示中添加 [trigger]，它将被替换为触发词
 #          - "[trigger] 举着一个写着 '我爱提示！' 的牌子"
-           - "a beautiful asia woman with red hair, playing chess at the park, bomb going off in the background",
-           - "a beautiful asia woman holding a coffee cup, in a beanie, sitting at a cafe",
-           - "a beautiful asia woman playing the guitar, on stage, singing a song, laser lights, punk rocker",
-           - "a beautiful asia women holding a sign that says 'I LOVE Cz! pls love me!'",
-           - "a beautiful young East Asian woman with fair skin and long straight dark hair",
+           - "a beautiful asia woman with red hair, playing chess at the park, bomb going off in the background"
+           - "a beautiful asia woman holding a coffee cup, in a beanie, sitting at a cafe"
+           - "a beautiful asia woman playing the guitar, on stage, singing a song, laser lights, punk rocker"
+           - "a beautiful asia women holding a sign that says 'I LOVE Cz! pls love me!'"
+           - "a beautiful young East Asian woman with fair skin and long straight dark hair"
            - "a beautiful asian girl is sitting on a stool. in the bedroom, detailed face"
         neg: ""  # 在 flux 上未使用
         seed: 42
