@@ -63,7 +63,7 @@ config:
       model:
         # huggingface 模型名称或路径
         #name_or_path: "black-forest-labs/FLUX.1-schnell"
-        name_or_path: "/root/autodl-tmp/models/flux1-schnell/flux1-schnell.safetensors"
+        name_or_path: "/root/autodl-tmp/models/black-forest-labs/FLUX.1-schnell"
         assistant_lora_path: "ostris/FLUX.1-schnell-training-adapter" # flux schnell 训练所需
         is_flux: true
         quantize: true  # 运行 8 位混合精度
