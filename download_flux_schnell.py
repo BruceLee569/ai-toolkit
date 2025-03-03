@@ -3,9 +3,9 @@ from huggingface_hub import snapshot_download
 # 指定模型仓库
 repo_id = "black-forest-labs/FLUX.1-schnell"
 # 指定本地保存路径
-local_dir = "/root/autodl-tmp/models/"  # 替换为你想要保存的文件夹路径
+local_dir = "/root/autodl-tmp/models/black-forest-labs/FLUX.1-schnell"  # 替换为你想要保存的文件夹路径
 # 指定要跳过的文件
-ignore_patterns = ["flux1-schnell.safetensors", "transformer/*"]
+ignore_patterns = ["text_encoder_2/*]
 
 # 下载模型，跳过指定文件
 snapshot_download(
