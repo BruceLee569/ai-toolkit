@@ -1,0 +1,108 @@
+---
+job: extension
+config:
+  # 这个名字将用作文件夹和文件名
+  name: "my_first_flux_lora_v1"
+  process:
+    - type: 'sd_trainer'
+      # 保存训练会话/样本/权重的根文件夹
+      training_folder: "output"
+      # 取消注释以在终端中每隔 N 步查看性能统计信息
+      performance_log_every: 1000
+      device: cuda:0
+      # 如果指定了触发词，它将被添加到训练数据的标题中（如果标题中尚未存在）
+      # 或者，在你的标题中可以添加 [trigger]，它将被替换为触发词
+#      trigger_word: "p3r5on"
+      network:
+        type: "lora"
+        linear: 16
+        linear_alpha: 16
+      save:
+        dtype: float16 # 保存的精度
+        save_every: 250 # 每隔这么多步保存一次
+        max_step_saves_to_keep: 4 # 保留多少个中间保存
+        push_to_hub: false # 将此改为 True 以将训练好的模型推送到 Hugging Face
+        # 你可以设置一个 HF_TOKEN 环境变量，或者你将被提示登录
+#       hf_repo_id: your-username/your-model-slug
+#       hf_private: true # 仓库是私有的还是公开的
+      datasets:
+        # 数据集是一个图像文件夹。标题需要是与图像同名的 txt 文件
+        # 例如 image2.jpg 和 image2.txt。目前仅支持 jpg、jpeg 和 png
+        # 图像将自动调整大小并按指定的分辨率分组
+        # 在 Windows 上，使用反斜杠转义，例如 "C:\\path\\to\\images\\folder"
+        - folder_path: "/root/ai-toolkit/config/datasets/lyf"
+          caption_ext: "txt"
+          caption_dropout_rate: 0.05  # 5% 的时间会丢弃标题
+          shuffle_tokens: false  # 打乱标题顺序，以逗号分隔
+          cache_latents_to_disk: true  # 除非你知道自己在做什么，否则保持为 true
+          resolution: [ 512, 768, 1024 ]  # flux 支持多种分辨率
+      train:
+        batch_size: 1
+        steps: 3000  # 训练的总步数，500 - 4000 是一个不错的范围
+        gradient_accumulation_steps: 1
+        train_unet: true
+        train_text_encoder: false  # 对 flux 可能不起作用
+        gradient_checkpointing: true  # 除非你有大量显存，否则需要开启
+        noise_scheduler: "flowmatch" # 仅用于训练
+        optimizer: "adamw8bit"
+        lr: 1e-4
+        # 取消注释以跳过训练前的样本
+#        skip_first_sample: true
+        # 取消注释以完全禁用采样
+#        disable_sampling: true
+        # 取消注释以使用新的钟形曲线权重。实验性功能，但可能产生更好的结果
+#        linear_timesteps: true
+
+        # ema 会平滑学习过程，但可能会减慢速度。建议保持开启。
+        ema_config:
+          use_ema: true
+          ema_decay: 0.99
+
+        # 如果 GPU 支持 flux，可能需要这个，其他数据类型可能无法正常工作
+        dtype: bf16
+      model:
+        # huggingface 模型名称或路径
+        #name_or_path: "black-forest-labs/FLUX.1-schnell"
+        name_or_path: "/root/autodl-tmp/models/flux1-schnell/flux1-schnell.safetensors"
+        assistant_lora_path: "ostris/FLUX.1-schnell-training-adapter" # flux schnell 训练所需
+        is_flux: true
+        quantize: true  # 运行 8 位混合精度
+        # low_vram 在融合适配器时非常慢，除非绝对必要，否则避免使用
+#        low_vram: true  # 如果 GPU 连接到你的显示器，取消注释此项。它会使用更少的显存进行量化，但速度较慢。
+      sample:
+        sampler: "flowmatch" # 必须与 train.noise_scheduler 匹配
+        sample_every: 250 # 每隔这么多步采样一次
+        width: 1024
+        height: 1024
+        prompts:
+          # 你可以在提示中添加 [trigger]，它将被替换为触发词
+#          - "[trigger] 举着一个写着 '我爱提示！' 的牌子"
+          ; - "红发女人，在公园下棋，背景中有炸弹爆炸"
+          ; - "一个戴着毛帽的女人，手持咖啡杯，坐在咖啡馆里"
+          ; - "一匹马在夜店当 DJ，鱼眼镜头，烟雾机，激光灯，手持马提尼"
+          ; - "一个男人在海滩上展示他的新款酷 T 恤，背景中有鲨鱼从水里跳出"
+          ; - "一头熊在雪山中建造木屋"
+          ; - "女人在舞台上弹吉他，唱歌，激光灯，朋克摇滚风格"
+          ; - "留着胡子的潮男，在木工店里制作椅子"
+          ; - "男人的照片，白色背景，中景，模特展示服装，工作室照明，白色幕布"
+          ; - "一个男人举着写有 '这是一个标志' 的牌子"
+          ; - "一只斗牛犬，在后末世世界，拿着猎枪，穿皮夹克，在沙漠中，旁边有摩托车"
+          - "woman with red hair, playing chess at the park, bomb going off in the background"
+          - "a woman holding a coffee cup, in a beanie, sitting at a cafe"
+          - "a horse is a DJ at a night club, fish eye lens, smoke machine, lazer lights, holding a martini"
+          - "a man showing off his cool new t shirt at the beach, a shark is jumping out of the water in the background"
+          - "a bear building a log cabin in the snow covered mountains"
+          - "woman playing the guitar, on stage, singing a song, laser lights, punk rocker"
+          - "hipster man with a beard, building a chair, in a wood shop"
+          - "photo of a man, white background, medium shot, modeling clothing, studio lighting, white backdrop"
+          - "a man holding a sign that says, 'this is a sign'"
+          - "a bulldog, in a post apocalyptic world, with a shotgun, in a leather jacket, in a desert, with a motorcycle"
+        neg: ""  # 在 flux 上未使用
+        seed: 42
+        walk_seed: true
+        guidance_scale: 1  # schnell 不支持引导
+        sample_steps: 4  # 1 - 4 效果不错
+# 你可以在这里添加任何额外的元信息。[name] 会被替换为顶部配置中的名称
+meta:
+  name: "[name]"
+  version: '1.0'
