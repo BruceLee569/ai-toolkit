@@ -72,21 +72,17 @@ config:
       sample:
         sampler: "flowmatch" # 必须与 train.noise_scheduler 匹配
         sample_every: 250 # 每隔这么多步采样一次
-        width: 1024
-        height: 1024
+        width: 768
+        height: 768
         prompts:
           # 你可以在提示中添加 [trigger]，它将被替换为触发词
 #          - "[trigger] 举着一个写着 '我爱提示！' 的牌子"
-          - "woman with red hair, playing chess at the park, bomb going off in the background"
-          - "a woman holding a coffee cup, in a beanie, sitting at a cafe"
-          - "a horse is a DJ at a night club, fish eye lens, smoke machine, lazer lights, holding a martini"
-          - "a man showing off his cool new t shirt at the beach, a shark is jumping out of the water in the background"
-          - "a bear building a log cabin in the snow covered mountains"
-          - "woman playing the guitar, on stage, singing a song, laser lights, punk rocker"
-          - "hipster man with a beard, building a chair, in a wood shop"
-          - "photo of a man, white background, medium shot, modeling clothing, studio lighting, white backdrop"
-          - "a man holding a sign that says, 'this is a sign'"
-          - "a bulldog, in a post apocalyptic world, with a shotgun, in a leather jacket, in a desert, with a motorcycle"
+           - "a beautiful asia woman with red hair, playing chess at the park, bomb going off in the background",
+           - "a beautiful asia woman holding a coffee cup, in a beanie, sitting at a cafe",
+           - "a beautiful asia woman playing the guitar, on stage, singing a song, laser lights, punk rocker",
+           - "a beautiful asia women holding a sign that says 'I LOVE Cz! pls love me!'",
+           - "a beautiful young East Asian woman with fair skin and long straight dark hair",
+           - "a beautiful asian girl is sitting on a stool. in the bedroom, detailed face"
         neg: ""  # 在 flux 上未使用
         seed: 42
         walk_seed: true
