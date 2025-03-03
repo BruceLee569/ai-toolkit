@@ -77,16 +77,6 @@ config:
         prompts:
           # 你可以在提示中添加 [trigger]，它将被替换为触发词
 #          - "[trigger] 举着一个写着 '我爱提示！' 的牌子"
-          ; - "红发女人，在公园下棋，背景中有炸弹爆炸"
-          ; - "一个戴着毛帽的女人，手持咖啡杯，坐在咖啡馆里"
-          ; - "一匹马在夜店当 DJ，鱼眼镜头，烟雾机，激光灯，手持马提尼"
-          ; - "一个男人在海滩上展示他的新款酷 T 恤，背景中有鲨鱼从水里跳出"
-          ; - "一头熊在雪山中建造木屋"
-          ; - "女人在舞台上弹吉他，唱歌，激光灯，朋克摇滚风格"
-          ; - "留着胡子的潮男，在木工店里制作椅子"
-          ; - "男人的照片，白色背景，中景，模特展示服装，工作室照明，白色幕布"
-          ; - "一个男人举着写有 '这是一个标志' 的牌子"
-          ; - "一只斗牛犬，在后末世世界，拿着猎枪，穿皮夹克，在沙漠中，旁边有摩托车"
           - "woman with red hair, playing chess at the park, bomb going off in the background"
           - "a woman holding a coffee cup, in a beanie, sitting at a cafe"
           - "a horse is a DJ at a night club, fish eye lens, smoke machine, lazer lights, holding a martini"
