@@ -11,8 +11,8 @@ ignore_patterns = ["text_encoder_2/*", ]
 snapshot_download(
     repo_id=repo_id,
     local_dir=local_dir,
-    ignore_patterns=ignore_patterns,
+    #ignore_patterns=ignore_patterns,
     local_dir_use_symlinks=False  # 确保文件直接下载而不是符号链接
 )
 
-print(f"模型已下载到 {local_dir}，跳过了 flux1-schnell.safetensors")
+print(f"模型已下载到 {local_dir}")
